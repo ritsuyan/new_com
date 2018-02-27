@@ -674,7 +674,7 @@
             $('#submit').click(function (e) {
                 $(e.target).parent().hide().next().show()
             })
-            // 手机号码正则验证
+            // 手机号码正则验证  
             function checkP(phone) {
                 var r = /^((0\d{2,3}-\d{7,8})|(1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}))$/;
                 if (!r.test(phone)) {
