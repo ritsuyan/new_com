@@ -246,10 +246,10 @@ input[type="radio"]:checked + span ,input[type="checkbox"]:checked + span {
     }
 
     input[type="radio"] + span {
-        margin: .9rem .8rem 0 11px;
+        margin: .8rem .8rem 0 11px;
     }
     input[type="checkbox"] + span{
-        margin: 1.15rem .8rem 0 11px;
+        margin: .9rem .8rem 0 11px;
     }
 
     .con .ques .ques-tit {
