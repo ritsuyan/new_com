@@ -9,7 +9,7 @@ body {
 
 .app-page {
     width: 100%;
-    height: 101%;
+    height: 100%;
     background: url("../images/bg.jpg") top center no-repeat;
     background-size: 100% 100%;
 }
@@ -20,11 +20,17 @@ form{
 
 .con {
     position: relative;
-    padding: 5.6rem 8% 0;
-    width: 84%;
-    height: 82%;
+    width: calc(100% - 1.5rem);
+    margin: 0 auto;
     background: url("../images/con-bg.png") top center no-repeat;
     background-size: 100% 100%;
+    height: calc(100% - 5.6rem);
+    padding: 5.6rem 0 0 1.5rem;
+}
+
+.con .ques {
+    /* padding: 5.6rem 8% 0; */
+    width: 95%;
 }
 
 .con .ques .ques-tit {
@@ -36,14 +42,7 @@ form{
     color: #6490f6;
 }
 
-.con .ques .answer {
-    width: 100%;
-    color: #505050;
-    font-size: 0.75rem;
-    height: 2.13rem;
-    line-height: 2.13rem;
-    margin-bottom: 0.3rem;
-}
+
 
 .con .ques .answer input {
     margin: 0 0.5rem;
@@ -55,14 +54,7 @@ form{
     color: #525cce;
 }
 
-.con .ques .answer .write {
-    padding: 0 0.5rem;
-    width: 8rem;
-    margin: 0;
-    border-bottom: #505050 1px solid;
-    outline: none;
-    text-align: center;
-}
+
 
 .con .ques .next {
     position: absolute;
@@ -85,17 +77,6 @@ form{
 }
 
 
-/* .con .ques .next:active{
-    background: url("../images/btn2.png") 0 0 no-repeat;
-    background-size: 100% 100%;
-} */
-
-.con .ques .next.cant {
-    color: #adadad;
-    background: url("../images/btn3.png") 0 0 no-repeat;
-    background-size: 100% 100%;
-}
-
 .con .ques .write2 {
     position: relative;
 }
@@ -103,7 +84,7 @@ form{
 .con .ques .write2 textarea {
     padding: 0.5rem 2%;
     outline: none;
-    width: 96%;
+    width: 93%;
     resize: none;
     border: #505050 1px solid;
     border-radius: 0.5rem;
@@ -123,7 +104,7 @@ form{
 .con .ques .write3 input {
     border-radius: 0.3rem;
     outline: none;
-    width: 96%;
+    width: 90%;
     padding: 0 2%;
     border: #505050 1px solid;
     height: 2rem;
@@ -133,7 +114,7 @@ form{
 }
 
 .con .ques .answer2 {
-    width: 100%;
+    width: 88%;
     color: #505050;
     font-size: 0.75rem;
     height: 2.13rem;
@@ -151,14 +132,14 @@ form{
     color: #525cce;
 }
 
-.con .ques .answer2 .write {
+/* .con .ques .answer2 .write {
     padding: 0 0.5rem;
     width: 8rem;
     margin: 0;
     border-bottom: #505050 1px solid;
     outline: none;
     text-align: center;
-}
+} */
 
 .ques1 label,
 .ques2 label,
@@ -213,13 +194,25 @@ input[type="radio"]:checked + span ,input[type="checkbox"]:checked + span {
 
 
 /**************  media query  styles *******************/
+@media only screen and (max-width: 320px) {
+    input[type="checkbox"] + span,input[type="radio"] + span {
+        margin: .5rem .6rem 0 0;
+    }
+    label{
+        font-size: 12px;
+    }
+}
 
-@media only screen and (min-height: 1024px) {
+
+@media only screen and (min-height: 768px) {
     .con{
         height: 78%;
     }
-    input[type="checkbox"] + span,input[type="radio"] + span {
-        margin: .8rem 16px 0 11px;
+    input[type="radio"] + span {
+        margin: .9rem 16px 0 11px;
+    }
+    input[type="checkbox"] + span{
+        margin: 1.2rem 16px 0 11px;
     }
     .ques{
         height: 78%;
@@ -227,5 +220,56 @@ input[type="radio"]:checked + span ,input[type="checkbox"]:checked + span {
     .ques-body{
         overflow: auto;
         height: 80%;
+    }
+}
+
+/* 横屏状态时 */
+@media (orientation: landscape) {
+    .ques{
+        height: 78%;
+    }
+    .ques-body{
+        overflow: auto;
+        height: 80%;
+    }
+    .con {
+        position: relative;
+        width: calc(100% - 1.5rem);
+        margin: 0 auto;
+        background: url(../images/con-bg.png) top center no-repeat;
+        background-size: 100% 100%;
+        height: calc(100% - 2rem);
+        padding: 2rem 0 0 1.5rem;
+    }
+    .con .ques .next{
+        bottom:0.28rem;
+    }
+
+    input[type="radio"] + span {
+        margin: .9rem .8rem 0 11px;
+    }
+    input[type="checkbox"] + span{
+        margin: 1.15rem .8rem 0 11px;
+    }
+
+    .con .ques .ques-tit {
+        color: #505050;
+        font-size: .5rem;
+        margin-bottom: .5rem; 
+    }
+
+    .con .ques .write2 textarea {
+        padding: 0.5rem 2%;
+        outline: none;
+        width: 93%;
+        resize: none;
+        border: #505050 1px solid;
+        border-radius: 0.5rem;
+        height: 2.8rem;
+        color: #a8a8a8;
+        font-size: 0.75rem;
+    }
+    .con .ques .write2 span{
+        display: none;
     }
 }
