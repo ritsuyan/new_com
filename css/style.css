@@ -1,0 +1,223 @@
+html,body{
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    background-color: #ffffff;
+}
+
+.app-page {
+    width: 100%;
+    height: 100%;
+    background: url("../images/bg.jpg") top center no-repeat;
+    background-size: 100% 100%;
+}
+
+form{
+    height: 100%;
+}
+
+.con {
+    position: relative;
+    padding: 5.6rem 8% 0;
+    width: 84%;
+    height: 82%;
+    background: url("../images/con-bg.png") top center no-repeat;
+    background-size: 100% 100%;
+}
+
+.con .ques .ques-tit {
+    color: #505050;
+    margin-bottom: 1.0rem;
+}
+
+.con .ques .ques-tit span {
+    color: #6490f6;
+}
+
+.con .ques .answer {
+    width: 100%;
+    color: #505050;
+    font-size: 0.75rem;
+    height: 2.13rem;
+    line-height: 2.13rem;
+    margin-bottom: 0.3rem;
+}
+
+.con .ques .answer input {
+    margin: 0 0.5rem;
+}
+
+.con .ques .answer.on {
+    background: #e9c9ff;
+    border-radius: 0.3rem;
+    color: #525cce;
+}
+
+.con .ques .answer .write {
+    padding: 0 0.5rem;
+    width: 8rem;
+    margin: 0;
+    border-bottom: #505050 1px solid;
+    outline: none;
+    text-align: center;
+}
+
+.con .ques .next {
+    position: absolute;
+    color: #ffffff;
+    font-size: 0.88rem;
+    margin: 0 0 0 -5.9865rem;
+    width: 11.973rem;
+    height: 2rem;
+    line-height: 2rem;
+    background: url("../images/btn3.png") 0 0 no-repeat;
+    background-size: 100% 100%;
+    text-align: center;
+    left: 50%;
+    bottom: 1.68rem;
+}
+
+.con .ques .next.active {
+    background: url("../images/btn2.png") 0 0 no-repeat;
+    background-size: 100% 100%;
+}
+
+
+/* .con .ques .next:active{
+    background: url("../images/btn2.png") 0 0 no-repeat;
+    background-size: 100% 100%;
+} */
+
+.con .ques .next.cant {
+    color: #adadad;
+    background: url("../images/btn3.png") 0 0 no-repeat;
+    background-size: 100% 100%;
+}
+
+.con .ques .write2 {
+    position: relative;
+}
+
+.con .ques .write2 textarea {
+    padding: 0.5rem 2%;
+    outline: none;
+    width: 96%;
+    resize: none;
+    border: #505050 1px solid;
+    border-radius: 0.5rem;
+    height: 5.8rem;
+    color: #a8a8a8;
+    font-size: 0.75rem;
+}
+
+.con .ques .write2 span {
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.5rem;
+    color: #717171;
+    font-size: 0.64rem;
+}
+
+.con .ques .write3 input {
+    border-radius: 0.3rem;
+    outline: none;
+    width: 96%;
+    padding: 0 2%;
+    border: #505050 1px solid;
+    height: 2rem;
+    line-height: 2rem;
+    color: #a8a8a8;
+    font-size: 0.875rem;
+}
+
+.con .ques .answer2 {
+    width: 100%;
+    color: #505050;
+    font-size: 0.75rem;
+    height: 2.13rem;
+    line-height: 2.13rem;
+    margin: 0 4.8% 0.3rem 0;
+}
+
+.con .ques .answer2 input {
+    margin: 0 0.5rem;
+}
+
+.con .ques .answer2.on {
+    background: #e9c9ff;
+    border-radius: 0.3rem;
+    color: #525cce;
+}
+
+.con .ques .answer2 .write {
+    padding: 0 0.5rem;
+    width: 8rem;
+    margin: 0;
+    border-bottom: #505050 1px solid;
+    outline: none;
+    text-align: center;
+}
+
+.ques1 label,
+.ques2 label,
+.ques5 label,
+.ques6 label,
+.ques7 label,
+.ques8 label,
+.ques9 label,
+.ques10 label,
+.ques11 label {
+    display: block;
+    margin-bottom: .8rem;
+}
+
+.ques.ques12 .answer2{
+    width: 43%;
+}
+
+
+
+
+
+/***************** input style modify  */
+input[type="radio"],input[type="checkbox"]{
+    display:none;
+    
+}
+
+label {
+    font-family:Arial, sans-serif;
+    font-size:14px;
+}
+
+label span {
+    display:inline-block;
+    width:20px;
+    height:20px;
+    margin:-1px 16px 0 0;
+    vertical-align:middle;
+    background:url('../images/unselect.png') 0 0 no-repeat;
+    cursor:pointer;
+    float: left;
+}
+
+input[type="checkbox"] + span,input[type="radio"] + span {
+    margin: .6rem .8rem 0 11px;
+}
+
+input[type="radio"]:checked + span ,input[type="checkbox"]:checked + span {
+    background:url('../images/select.png') 0 0 no-repeat;
+}
+
+
+/**************  ipad  styles *******************/
+@media only screen and (min-height: 1024px) {
+    .con{
+        height: 78%;
+    }
+    input[type="checkbox"] + span,input[type="radio"] + span {
+        margin: .8rem 16px 0 11px;
+    }
+}
