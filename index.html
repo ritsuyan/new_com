@@ -583,12 +583,18 @@
     <script>
         $(function () {
             //设置font-size
-            var fontsize = 16 * $(window).width() / 320;
-            if (fontsize > 67.5) {
-                fontsize = 67.5;
-            }
-            $('html').css('font-size', fontsize);
+            setrFont()
+            window.addEventListener('resize', function () {
+                setrFont()
+            }, false);
 
+            function setrFont() {
+                var fontsize = 16 * $(window).width() / 320;
+                if (fontsize > 67.5) {
+                    fontsize = 67.5;
+                }
+                $('html').css('font-size', fontsize);
+            }
             /*
               存储表单
               单选从1到n存数字, 多选存数组从1到n, 填空存字符串
