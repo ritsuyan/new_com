@@ -38,6 +38,7 @@
                         </div>
                     </div>
                     <a href="javascript:;" class="next">下一题</a>
+                    <a href="javascript:;" class="next active" style="opacity:0;">下一题</a>
                 </div>
                 <div class="ques ques2" style="display: none;" type='single'>
                     <div class="ques-tit">
@@ -596,15 +597,22 @@
             */
             var dArr = [];
             // 走下一题就相当于input 有值了 直接走就行了 最后一起提交。
-            $('input').click(function () {
-                for (var index = 0; index < $('.next').length; index++) {
-                    var element = $($('.next')[index]);
-                    if (element.parent().find(':checked').length > 0) {
-                        element.addClass('active')
-                    } else {
-                        element.removeClass('active')
-                    }
+            $('input').click(function (e) {
+                var currP = $(e.target).parents('.ques');
+                console.log(currP)
+                if(currP.find(':checked').length > 0) {
+                    currP.find('.next').addClass('active')
+                } else {
+                    currP.find('.next').removeClass('active')
                 }
+                // for (var index = 0; index < $('.next').length; index++) {
+                //     var element = $($('.next')[index]);
+                //     if (element.parent().find(':checked').length > 0) {
+                //         element.addClass('active')
+                //     } else {
+                //         element.removeClass('active')
+                //     }
+                // }
             })
 
 
