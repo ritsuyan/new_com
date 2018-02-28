@@ -128,10 +128,10 @@
                             </label>
                         </div>
                         <div class="answer2 fl">
-                            <label>
-                                <input type="checkbox" value="7" class="other">其他
-                                <input type="text">
-                                <span></span>
+                            <label for="oth">
+                                <input type="checkbox" value="7" class="other" id='oth'>其他
+                                <span class="other_s"></span>
+                                <input type="text" class="otplace" placeholder="请填写其他了解渠道">
                             </label>
                         </div>
                     </div>
@@ -431,7 +431,7 @@
 
                         <div class="answer2 fl ">
                             <label>
-                                <input type="radio" name="gender" value="1" checked> 够用
+                                <input type="radio" name="gender" value="1" > 够用
                                 <span></span>
                                 <br>
                             </label>
@@ -439,7 +439,7 @@
 
                         <div class="answer2 fl ">
                             <label>
-                                <input type="radio" name="gender" value="2" checked> 希望增加伤害类道具
+                                <input type="radio" name="gender" value="2" > 希望增加伤害类道具
                                 <span></span>
                                 <br>
                             </label>
@@ -447,7 +447,7 @@
 
                         <div class="answer2 fl ">
                             <label>
-                                <input type="radio" name="gender" value="3" checked> 希望增加治愈类道具
+                                <input type="radio" name="gender" value="3" > 希望增加治愈类道具
                                 <span></span>
                                 <br>
                             </label>
@@ -455,11 +455,17 @@
 
                         <div class="answer2 fl ">
                             <label>
-                                <input type="radio" name="gender" value="4" checked> 希望增加其他类别道具
-                                <span></span>
-                                <input type="text">
-                                <br>
+                                <input type="radio" name="gender" value="4" > 希望增加其他类别道具
+                                <span></span>                          
                             </label>
+
+                            <!-- <label for="oth">
+                                <input type="radio" value="4" class="other" id='oth'>其他
+                                <span class="other_s"></span>
+                                <input type="text" class="otplace" placeholder="请填写其他了解渠道">
+                            </label> -->
+
+
                         </div>
 
                     </div>
@@ -580,6 +586,7 @@
     </div>
 
     <script src="js/zepto.min.js"></script>
+    <script src="js/alert.min.js"></script>
     <script>
         $(function () {
             //设置font-size
@@ -587,52 +594,36 @@
             window.addEventListener('resize', function () {
                 setrFont()
             }, false);
-
-            function setrFont() {
-                var fontsize = 16 * $(window).width() / 320;
-                if (fontsize > 67.5) {
-                    fontsize = 67.5;
-                }
-                $('html').css('font-size', fontsize);
-            }
             /*
               存储表单
               单选从1到n存数字, 多选存数组从1到n, 填空存字符串
             */
             var dArr = [];
+            var rPhone = /^((0\d{2,3}-\d{7,8})|(1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}))$/;
+            var rQq = /^\d{5,10}$/;
             // 走下一题就相当于input 有值了 直接走就行了 最后一起提交。
             $('input').click(function (e) {
                 var currP = $(e.target).parents('.ques');
-                console.log(currP)
-                if (currP.find(':checked').length > 0) {
-                    currP.find('.next').addClass('active')
-                } else {
-                    currP.find('.next').removeClass('active')
-                }
+                currP.find(':checked').length > 0 ? currP.find('.next').addClass('active') : currP.find(
+                    '.next').removeClass('active')
             })
-
-
 
             $(".next").click(function (e) {
-                if (!$(e.target).hasClass('active')) return;
-                // 必须满足条件才给走下一题
-                save(e), $(e.target).parent().hide().next().show()
-                console.log('dar', dArr)
-                // 存储此题内容
+                goNext(e)
             })
-
-
 
             // 限制多选项数 每次选择事件时确认项数
             $.fn.limit = function (n) {
                 console.log(n, this)
                 var self = this;
                 this.click(function (e) {
-                    console.log('se', self.filter(':checked').length);
-                    (self.filter(':checked').length === n) ? self.not(':checked').attr('disabled',
-                            true):
-                        self.not(":checked").removeAttr("disabled");
                     console.log('e', $(e.target))
+                    if ($(e.target)[0].type === 'text') return;
+                    console.log('se', self.filter('input[type="checkbox"]').filter(':checked').length , self);
+                    (self.filter('input[type="checkbox"]').filter(':checked').length === n) ? (self.filter('input[type="checkbox"]').not(':checked').attr('disabled',
+                        true)) :
+                    (self.not(":checked").removeAttr("disabled"));
+
                     // 选中样式效果
                     if ($(e.target).parents('.answer2').hasClass('on')) {
                         $(e.target).parents('.answer2').removeClass('on')
@@ -667,35 +658,20 @@
                 }
                 $("#tdd").html(this.value.length + '/' + 200);
             })
-            $('#phone').keyup(function () {
-                checkP(Number($('#phone').val()))
+            $(document).keyup(function () {
+                console.log('keyup',$('#phone').val())
+                regC($('#phone'), rPhone, $('#ph')),  regC($('#qq'), rQq, $('#submit'))
             })
-            $('#qq').keyup(function () {
-                checkQQ(Number($('#qq').val()))
-            })
-            $('#submit').click(function (e) {
-                $(e.target).parent().hide().next().show()
-            })
-            // 手机号码正则验证  
-            function checkP(phone) {
-                var r = /^((0\d{2,3}-\d{7,8})|(1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}))$/;
-                if (!r.test(phone)) {
-                    console.log('号码格式错误,固话需加区号和符号‘-’');
-                    return;
-                } else {
-                    $('#ph').addClass('active')
-                }
-            }
 
-            // QQ号码正则验证
-            function checkQQ(QQ) {
-                var r = /^\d{5,10}$/;
-                if (!r.test(QQ)) {
-                    console.log('qq错误');
+            // 正则通用方法
+            function regC(elem, reg, btn) {
+                if (!reg.test(Number(elem.val()))) {
+                    console.log('未通过');
+                    btn.removeClass('active')
                     return;
                 } else {
-                    $('#submit').addClass('active')
-                }
+                    btn.addClass('active')
+                } 
             }
 
             function save(e) {
@@ -709,16 +685,33 @@
                     // "其他" 
                 } else if (currT === 'multiple') {
                     // 多选
+                    console.log('ipp', inputArr)
                     var to = [];
                     for (var index = 0; index < inputArr.length; index++) {
                         to.push(Number(inputArr[index].value))
                     }
+                    to.push({'其他': $(e.target).parent().find(".otplace").val()});
                     console.log('to', to)
                     dArr.push(to)
                 } else if (currT === 'text') {
                     dArr.push(textVal.val())
                 }
 
+            }
+
+            function setrFont() {
+                var fontsize = 16 * $(window).width() / 320;
+                if (fontsize > 67.5) {
+                    fontsize = 67.5;
+                }
+                $('html').css('font-size', fontsize);
+            }
+
+            function goNext(e) {
+                // 必须满足条件才给走下一题 存储此题内容  
+                if (!$(e.target).hasClass('active')) return;
+                save(e), $(e.target).parent().hide().next().show()
+                console.log('dar', dArr)
             }
 
             // $.ajax({
@@ -735,6 +728,9 @@
             //         }
             //     }
             // });
+                      // $('#submit').click(function (e) {
+            //     $(e.target).parent().hide().next().show()
+            // })
 
         });
     </script>
