@@ -231,7 +231,7 @@ input[type="radio"]:checked + span ,input[type="checkbox"]:checked + span {
 
 /* 横屏状态时 */
 @media (orientation: landscape) {
-    .next{
+    .con .ques .next{
         height: 1.5rem;
         line-height: 1.5rem;
     }
