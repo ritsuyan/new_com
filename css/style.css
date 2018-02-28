@@ -201,7 +201,7 @@ input[type="radio"]:checked + span ,input[type="checkbox"]:checked + span {
 }
 /**************  media query  styles *******************/
 @media only screen and (max-width: 320px) {
-    input[type="checkbox"] + span,input[type="radio"] + span {
+    input[type="checkbox"] + span,input[type="radio"] + span ,.answer2 .other_s{
         margin: .5rem .6rem 0 0;
     }
     label{
@@ -217,7 +217,7 @@ input[type="radio"]:checked + span ,input[type="checkbox"]:checked + span {
     input[type="radio"] + span {
         margin: .9rem 16px 0 11px;
     }
-    input[type="checkbox"] + span{
+    input[type="checkbox"] + span,.answer2 .other_s{
         margin: 1.2rem 16px 0 11px;
     }
     .ques{
