@@ -431,7 +431,7 @@
 
                         <div class="answer2 fl ">
                             <label>
-                                <input type="radio" name="gender" value="1" > 够用
+                                <input type="radio" name="gender" value="1"> 够用
                                 <span></span>
                                 <br>
                             </label>
@@ -439,7 +439,7 @@
 
                         <div class="answer2 fl ">
                             <label>
-                                <input type="radio" name="gender" value="2" > 希望增加伤害类道具
+                                <input type="radio" name="gender" value="2"> 希望增加伤害类道具
                                 <span></span>
                                 <br>
                             </label>
@@ -447,7 +447,7 @@
 
                         <div class="answer2 fl ">
                             <label>
-                                <input type="radio" name="gender" value="3" > 希望增加治愈类道具
+                                <input type="radio" name="gender" value="3"> 希望增加治愈类道具
                                 <span></span>
                                 <br>
                             </label>
@@ -455,16 +455,10 @@
 
                         <div class="answer2 fl ">
                             <label>
-                                <input type="radio" name="gender" value="4" > 希望增加其他类别道具
-                                <span></span>                          
-                            </label>
-
-                            <!-- <label for="oth">
-                                <input type="radio" value="4" class="other" id='oth'>其他
+                                <input type="radio" name="gender" value="4" class="other"> 希望增加其他类别道具
                                 <span class="other_s"></span>
-                                <input type="text" class="otplace" placeholder="请填写其他了解渠道">
-                            </label> -->
-
+                                <input type="text" class="otplace" placeholder="请填写其他了解渠道" style='width: 25%;'>
+                            </label>
 
                         </div>
 
@@ -576,11 +570,6 @@
                     </div>
                     <a href="javascript:;" class="next" id="submit">完成问卷</a>
                 </div>
-                <div class="ques showResult" style="display: none;" type='text'>
-                    <div class="ques-tit">
-                        您的问卷已提交成功！
-                    </div>
-                </div>
             </div>
         </form>
     </div>
@@ -590,8 +579,9 @@
     <script>
         $(function () {
             //设置font-size
-            setrFont()
+            setrFont(),  verify();
             window.addEventListener('resize', function () {
+                alert('toggle')
                 setrFont()
             }, false);
             /*
@@ -609,7 +599,8 @@
             })
 
             $(".next").click(function (e) {
-                goNext(e)
+                if($(e.target).attr('id') === 'submit') return;
+                goNext(e);
             })
 
             // 限制多选项数 每次选择事件时确认项数
@@ -619,9 +610,11 @@
                 this.click(function (e) {
                     console.log('e', $(e.target))
                     if ($(e.target)[0].type === 'text') return;
-                    console.log('se', self.filter('input[type="checkbox"]').filter(':checked').length , self);
-                    (self.filter('input[type="checkbox"]').filter(':checked').length === n) ? (self.filter('input[type="checkbox"]').not(':checked').attr('disabled',
-                        true)) :
+                    console.log('se', self.filter('input[type="checkbox"]').filter(':checked').length,
+                        self);
+                    (self.filter('input[type="checkbox"]').filter(':checked').length === n) ? (self
+                        .filter('input[type="checkbox"]').not(':checked').attr('disabled',
+                            true)) :
                     (self.not(":checked").removeAttr("disabled"));
 
                     // 选中样式效果
@@ -659,8 +652,8 @@
                 $("#tdd").html(this.value.length + '/' + 200);
             })
             $(document).keyup(function () {
-                console.log('keyup',$('#phone').val())
-                regC($('#phone'), rPhone, $('#ph')),  regC($('#qq'), rQq, $('#submit'))
+                console.log('keyup', $('#phone').val())
+                regC($('#phone'), rPhone, $('#ph')), regC($('#qq'), rQq, $('#submit'))
             })
 
             // 正则通用方法
@@ -671,7 +664,7 @@
                     return;
                 } else {
                     btn.addClass('active')
-                } 
+                }
             }
 
             function save(e) {
@@ -680,23 +673,37 @@
                 var inputArr = $(e.target).parent().find(":checked");
                 var textVal = $(e.target).parent().find(".textV");
                 if (currT === 'single') {
-                    // 单选自然只有一个值    
-                    dArr.push(Number(inputArr[0].value))
+                    // 单选自然只有一个值     otplace
+                    if ($(inputArr[0]).hasClass('other')) {
+                        var ot_ = $(e.target).parent().find(".otplace");
+                        dArr.push({
+                            key: $(inputArr[0]).val(),
+                            value: ot_.val()
+                        });
+                    } else {
+                        dArr.push(Number(inputArr[0].value))
+                    }
                     // "其他" 
                 } else if (currT === 'multiple') {
                     // 多选
                     console.log('ipp', inputArr)
                     var to = [];
+                    // 如果有其他_ 类型选择框选中了 checkbox类型的长度-1
                     for (var index = 0; index < inputArr.length; index++) {
-                        to.push(Number(inputArr[index].value))
+                        if ($(inputArr[index]).hasClass('other')) {
+                            var ot_ = $(inputArr[index]).parent().find(".otplace");
+                            to.push({
+                                key: $(inputArr[index]).val(),
+                                value: ot_.val()
+                            });
+                        } else {
+                            to.push(Number(inputArr[index].value))
+                        }
                     }
-                    to.push({'其他': $(e.target).parent().find(".otplace").val()});
-                    console.log('to', to)
                     dArr.push(to)
                 } else if (currT === 'text') {
                     dArr.push(textVal.val())
                 }
-
             }
 
             function setrFont() {
@@ -714,26 +721,73 @@
                 console.log('dar', dArr)
             }
 
-            // $.ajax({
-            //     type: "POST",
-            //     url: "getsubmit",
-            //     data: dArr,
-            //     dataType: 'json',
-            //     success: function (e) {
-            //         if (e.code === 0) {
+            function GetQueryString(name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+                var r = window.location.search.substr(1).match(reg);
+                if (r != null) return unescape(r[2]);
+                return null;
+            }
 
-            //             //提交成功后 确认提交消失 修改出现 表单致灰
-            //         } else {
+            // 校验是否填写过问卷           
+            function verify() {
+                $.ajax({
+                    type: "POST",
+                    url: "/survey/game/verify",
+                    data: {
+                        version: 1,
+                        token: GetQueryString('token'),
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.code === 0) { //提交成功后确认提交消失 修改出现 表单致灰
+                            data.result == false ? '' : $.alert('注意，您已填写过问卷');                       
+                        } else {
+                            $.alert('系统错误')
+                        }
+                    },
+                    error: function (jqXHR, textStatus, error) {
+                        var url = jqXHR.url;
+                        /* replace caturl with url in your append */
+                        $.alert('系统错误' + textStatus)
+                    }
+                });
+            }
 
-            //         }
-            //     }
-            // });
-                      // $('#submit').click(function (e) {
-            //     $(e.target).parent().hide().next().show()
-            // })
+            $('#submit').click(function (e) {
+                $.ajax({
+                    type: "POST",
+                    url: "/survey/game",
+                    data: {
+                        version: 1,
+                    //    token: GetQueryString('token'),
+                        data: JSON.stringify(dArr)
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.code === 0) { //提交成功后确认提交消失 修改出现 表单致灰
+                            $.alert('提交表单成功，请返回游戏内领取奖励！')
+                            //  $(e.target).parent().hide().next().show(), 
+                        } else {
+                            $.alert('未知故障，提交表单失败')
+                        }
+                    },
+                    error: function (jqXHR, textStatus, error) {
+                        var url = jqXHR.url;
+                        /* replace caturl with url in your append */
+                        $.alert('未知错误' + textStatus)
+                    }
+                });
 
+            })
         });
     </script>
 </body>
 
 </html>
+
+<!-- 
+  @1 错误处理   完成
+  @2 关闭页面按钮 
+  @3 适配滚动条  完成
+  @4 校验是否提交过问卷 完成  
+-->

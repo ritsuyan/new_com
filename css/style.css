@@ -239,7 +239,7 @@ input[type="radio"]:checked + span ,input[type="checkbox"]:checked + span {
         height: 78%;
     }
     .ques-body{
-        overflow: auto;
+        overflow: scroll;
         height: 80%;
     }
     .con {
@@ -285,4 +285,31 @@ input[type="radio"]:checked + span ,input[type="checkbox"]:checked + span {
     .answer2 .other_s {
         margin: .9rem .8rem 0 0.35rem;
     }
+}
+
+
+
+
+
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+::-webkit-scrollbar:vertical {
+    width: 12px;
+}
+
+::-webkit-scrollbar:horizontal {
+    height: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, .5);
+    border-radius: 10px;
+    border: 2px solid #ffffff;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;  
+    background-color: #ffffff; 
 }
