@@ -16,6 +16,7 @@
     <div class="app-page">
         <form action="">
             <div class="con">
+                <a href="uniwebview://close" id="close">X</a>
                 <div class="ques ques1" style="display: block;" type='single'>
                     <div class="ques-tit">
                         (
@@ -579,9 +580,9 @@
     <script>
         $(function () {
             //设置font-size
-            setrFont(),  verify();
+            setrFont(), // verify();
             window.addEventListener('resize', function () {
-                alert('toggle')
+         //       alert('toggle')
                 setrFont()
             }, false);
             /*
@@ -787,7 +788,7 @@
 
 <!-- 
   @1 错误处理   完成
-  @2 关闭页面按钮 
+  @2 关闭页面按钮 完成
   @3 适配滚动条  完成
   @4 校验是否提交过问卷 完成  
 -->
